@@ -1,0 +1,169 @@
+Metal Plaka Üzerindeki Kusuru Tespit Eden Faster R-CNN Uygulaması
+
+1. Tensorflow Object Detection Kurulumu
+
+Bunun için Tensorflow Object Detection API kullandım. İlk olarak github aşağıdaki linkten Object Detection API ‘ı indirdim. 
+https://github.com/tensorflow/models/tree/r1.13.0
+
+Daha sonra Model zoo'dan Faster-RCNN-Inception-V2-COCO seçtim. Modeli indirdikten sonr aobject_detection dosyasına atıyoruz.
+https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
+
+2. Anaconda Virtual Environment Kurulumu
+
+Daha sonra Anaconda ‘da  sanal ortam oluşturdum.
+C:\> conda create -n tensorflow python=3.7
+activate tensorflow
+
+3.Kütüphanelerin Kurulumu
+
+Kurduğum sanal ortama gerekli olan kütüphaneleri indirdim.
+•	(tensorflow) C:\> pip install tensorflow-gpu==1.13.2
+•	(tensorflow) C:\> conda install -c anaconda protobuf
+•	(tensorflow) C:\> pip install pillow
+•	(tensorflow) C:\> pip install lxml
+•	(tensorflow) C:\> pip install jupyter
+•	(tensorflow) C:\> pip install matplotlib
+•	(tensorflow) C:\> pip install pandas
+•	(tensorflow) C:\> pip install opencv-python
+
+4.PYTHONPATH Ayarlama
+
+Dosya yollarının  doğru verildiğinden emin olun.
+
+İndirdiğim Object decetion doyasına PYTHONPATH ayarladım.Github ‘tan indirdiğim dosyada models-r1.13.0 adında dosya bulunmaktadır.
+(tensorflow) C:\> set PYTHONPATH=C:\Users\BOTAN\Desktop\models-r1.13.0; C:\Users\BOTAN\Desktop\models-r1.13.0\research;\tensorflow1\models\research; C:\Users\BOTAN\Desktop \models-r1.13.0\research\slim
+
+5.Setup.py Dosyalarını Çalıştırma
+
+Daha sonra Protopuf doyalarımı derledim.
+protoc --python_out=. .\object_detection\protos\*.proto # * yerine protos dosyasındaki dosya adını yazıp tek tek derlenebilir.
+
+Not: Bu şekilde bütün dosyalarınızı derleyebilirsiniz. Ama bende olmadı. Bu yüzden Dosyaları tek tek derledim. Ve protos  derlenmemiş dosya kalmadığına emin olmalısınız.
+protoc --python_out=. .\object_detection\protos\anchor_generator.proto .\object_detection\protos\argmax_matcher.proto 
+.\object_detection\protos\bipartite_matcher.proto .\object_detection\protos\box_coder.proto .\object_detection\protos\box_predictor.proto
+ .\object_detection\protos\eval.proto .\object_detection\protos\faster_rcnn.proto .\object_detection\protos\faster_rcnn_box_coder.proto
+ .\object_detection\protos\grid_anchor_generator.proto .\object_detection\protos\hyperparams.proto .\object_detection\protos\image_resizer.proto
+ .\object_detection\protos\input_reader.proto .\object_detection\protos\losses.proto .\object_detection\protos\matcher.proto 
+.\object_detection\protos\mean_stddev_box_coder.proto .\object_detection\protos\model.proto .\object_detection\protos\optimizer.proto
+ .\object_detection\protos\pipeline.proto .\object_detection\protos\post_processing.proto .\object_detection\protos\preprocessor.proto
+ .\object_detection\protos\region_similarity_calculator.proto .\object_detection\protos\square_box_coder.proto .\object_detection\protos\ssd.proto 
+.\object_detection\protos\ssd_anchor_generator.proto .\object_detection\protos\string_int_label_map.proto .\object_detection\protos\train.proto 
+.\object_detection\protos\keypoint_box_coder.proto .\object_detection\protos\multiscale_anchor_generator.proto .\object_detection\protos\graph_rewriter.proto
+ .\object_detection\protos\calibration.proto
+
+
+ 
+
+6.Setup.py Dosyalarını Çalıştırma
+
+Setup.py Dosyalarını Çalıştırma. Obje Algılama Kütüphanelerinin Derlenmesi ve Yüklenmesi içindir.
+
+C:\Users\BOTAN\Desktop\models-r1.13.0\research > python setup.py build
+C:\Users\BOTAN\Desktop\models-r1.13.0\research > python setup.py install
+C:\Users\BOTAN\Desktop\models-r1.13.0\research\object_detection>
+jupyter notebook object_detection_tutorial.ipynb
+
+Not: Şuana Kadar yaptığımız tüm adımlar 90 sınıflı hazır modeli çalıştırmak içindi. 
+Yukarıdaki jupyter notebook ‘u çalıştırarak modelin bildiği 90 sınıftan biriyle test edebilirsiniz.
+Bu şekilde oluşturduğumuz ortamın sorunsuz çalıştığından emin olabilirisiniz. 
+
+7.Resim Etiketleme
+
+Bu adımda artık projemize başlayabiliriz. İlk olarak LabelImg programı ile elimizdeki görüntülerden oluşan veri setini 
+etiketleyerek konumlarını yani xml dosyalarını oluşturuyoruz. Daha sonra her resmin xml doyası ile veri setimi %80 Train %20 
+Test olarak 2 dosya ’ya ayırdım.
+
+8.Eğitim Verisi Oluşturma
+
+•Etiket bilgisini barındıran .xml dosyalarını .csv dosyasına çevirdim. 
+
+(tensorflow)C:\Users\BOTAN\Desktop\modelsr1.13.0\research\object_detection >  python xml_to_csv.py
+
+python xml_to_csv.py : Object_detection dosyasında xml_to_csv.py adlı dosyam bulunmaktadır.
+
+
+• .csv dosyaları oluşturulduktan sonra generate_tfrecord.py dosyası oluşturdum.
+
+Train için;
+(tensorflow)C:\Users\BOTAN\Desktop\modelsr1.13.0\research\object_detection >  python generate_tfrecord.py --csv_input=images\train_labels.csv --image_dir=images\train --output_path=train.record
+
+Test için;
+(tensorflow)C:\Users\BOTAN\Desktop\modelsr1.13.0\research\object_detection >  python generate_tfrecord.py --csv_input=images\test_labels.csv --image_dir=images\test --output_path=test.record
+
+Not : generate_tfrecord.py dosyasıda object_detection dosyasında bulunmaktadır.
+
+9.Label Map Oluşturma
+
+•Label map modele hangi ID'de hangi sınıf var onu söyler. labelmap.pbtxt uzantısı ile training klasöründe dosya oluşturuz.
+İçerisine aşağıdaki gibi sınıf etiketlerinizi ve id lerini yazınız. 
+
+item {
+  id: 1
+  name: 'DefectTypeB'
+} 
+item {
+  id: 2
+  name: 'DefectTypeC'
+}
+item {
+  id: 3
+  name: 'DefectTypeA'
+}
+
+10.Eğitim Ayarları
+
+•C:\Users\BOTAN\Desktop\models-r1.13.0\research\object_detection\samples\configs klasörüne gidip 
+faster_rcnn_inception_v2_pets.config dosyasını alıp training klasörüne yapıştırdım.
+Kullanacağınız modele göre config dosyasını seçmezniz gerekiyor.
+
+•Dosya  ’ı açıp 9. Satır num_classes: 3 ’a sınıf sayımı yazdım.
+
+•Dosya ’yı açıp 9. satır ’a  sınıf sayımı yazdım.
+
+•123 ve 125. satır: train_input_reader içerisinde input_path ve label_map_path belirledim.
+
+train_input_reader: {
+  tf_record_input_reader {
+    input_path: "C:/Users/BOTAN/Desktop/yeni/models-r1.13.0/research/object_detection/train.record"
+  }
+  label_map_path: "C:/Users/BOTAN/Desktop/yeni/models-r1.13.0/research/object_detection/training/labelmap.pbtxt"
+}
+
+•130. satır ‘a kaç tane test içinde resmim olduğunu yazdım.
+
+num_examples: 98
+
+•135 ve 137. satır: eval_input_reader içerisinde input_path ve label_map_path belirleyin. 
+
+eval_input_reader: {
+  tf_record_input_reader {
+    input_path: "C:/Users/BOTAN/Desktop/yeni/models-r1.13.0/esearch/object_detection/test.record"
+  }
+  label_map_path: "C:/Users/BOTAN/Desktop/yeni/models-r1.13.0/research/object_detection/training/labelmap.pbtxt"
+  shuffle: false
+  num_readers: 1
+}
+
+Not : Dosya yollarının aralarındaki "/" düz oladuğuna dikkat edin. dosya yolunu kopyalarken "\" bu şekilde olacaktır. 
+Ve dosya yollarının " tırnak içinde olduğunada dikkat edin. ' tırnakla yazarsanız hata alırsınız.
+
+11. Eğitimi Gerçekleştirme
+
+Koda satırı ile eğitimimiz başlatıyorum. Eğitimim 15192 step ’te durdurdum.
+
+•python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/faster_rcnn_inception_v2_pets.config
+
+Not : Object_detection klasöründe train.py dosyası bulunmaktadır. 
+ 
+12.Inference Graph dosyası
+
+python export_inference_graph.py --input_type image_tensor --pipeline_config_path training/faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix training/model.ckpt-15192 --output_directory inference_graph
+
+Not : model.ckpt-15192 bı kısmı tranining klasöründe gösterilen eğitiminizin kaçıncı adımda bittiğini göreceksiniz.
+Adım sayısını yazmanız gerekiyor.
+
+13. Modelimizi Test Edeceğimiz Program
+
+Object_detection_image.py dosyasını çalıştırınız. Object_detection klasöründe test için resim bulunması gerekiyor. 
+Path leri dosru verdiğinizden emin olun. Ve Farklı bir uygulama yaptıysanız.
+Sınıf sayınızı kendi sınıfınıza göre değiştirin.

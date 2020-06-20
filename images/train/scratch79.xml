@@ -1,0 +1,26 @@
+<annotation>
+	<folder>scratch</folder>
+	<filename>scratch79.jpg</filename>
+	<path>C:\Users\BOTAN\Desktop\yeni\scratch\scratch79.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>1</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>DefectTypeC</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>54</xmin>
+			<ymin>179</ymin>
+			<xmax>179</xmax>
+			<ymax>219</ymax>
+		</bndbox>
+	</object>
+</annotation>

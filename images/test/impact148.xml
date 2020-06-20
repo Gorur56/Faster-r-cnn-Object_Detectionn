@@ -1,0 +1,26 @@
+<annotation>
+	<folder>impact</folder>
+	<filename>impact148.jpg</filename>
+	<path>C:\Users\BOTAN\Desktop\yeni\impact\impact148.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>1</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>DefectTypeB</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>26</xmin>
+			<ymin>340</ymin>
+			<xmax>74</xmax>
+			<ymax>396</ymax>
+		</bndbox>
+	</object>
+</annotation>

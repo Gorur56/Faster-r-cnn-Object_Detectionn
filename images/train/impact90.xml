@@ -1,0 +1,26 @@
+<annotation>
+	<folder>impact</folder>
+	<filename>impact90.jpg</filename>
+	<path>C:\Users\BOTAN\Desktop\yeni\impact\impact90.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>1</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>DefectTypeB</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>244</xmin>
+			<ymin>378</ymin>
+			<xmax>287</xmax>
+			<ymax>424</ymax>
+		</bndbox>
+	</object>
+</annotation>

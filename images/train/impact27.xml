@@ -1,0 +1,26 @@
+<annotation>
+	<folder>impact</folder>
+	<filename>impact27.jpg</filename>
+	<path>C:\Users\BOTAN\Desktop\yeni\impact\impact27.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>1</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>DefectTypeB</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>58</xmin>
+			<ymin>301</ymin>
+			<xmax>102</xmax>
+			<ymax>348</ymax>
+		</bndbox>
+	</object>
+</annotation>

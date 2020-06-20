@@ -1,0 +1,14 @@
+item {
+  id: 1
+  name: 'DefectTypeB'
+}
+ 
+item {
+  id: 2
+  name: 'DefectTypeC'
+}
+ 
+item {
+  id: 3
+  name: 'DefectTypeA'
+}

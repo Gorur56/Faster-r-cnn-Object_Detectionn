@@ -1,0 +1,26 @@
+<annotation>
+	<folder>stain</folder>
+	<filename>stain71.jpg</filename>
+	<path>C:\Users\BOTAN\Desktop\yeni\stain\stain71.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>1</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>DefectTypeA</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>373</xmin>
+			<ymin>21</ymin>
+			<xmax>418</xmax>
+			<ymax>58</ymax>
+		</bndbox>
+	</object>
+</annotation>
